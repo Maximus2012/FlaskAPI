@@ -24,3 +24,6 @@ class UserDao:
 
     def get_by_name(self, name):
         return self.session.query(User).filter(User.name == name).first()
+
+    def get_all(self):
+        return self.session.query(User).all()

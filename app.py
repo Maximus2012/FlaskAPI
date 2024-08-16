@@ -16,10 +16,12 @@ def create_app(config_object: Config) -> Flask:
     def login():
         return render_template('index.html')
 
-    @app.route("/auth/register" )
+    @app.route("/auth/register")
     def registration():
         return render_template('regisration.html')
+
     register_extensions(app)
+
     return app
 
 
@@ -28,7 +30,10 @@ def register_extensions(app: Flask) -> None:
     db.init_app(app)
     with app.app_context():
         db.create_all()
-    api = Api(app)
+    api = Api(app,
+        authorizations={'Bearer': {'type': 'apiKey', 'in': 'header', 'name': 'Authorization'}},
+        title="My Flask Project",
+        doc='/doc')
     # Add namespaces
 
     api.add_namespace(user_ns)

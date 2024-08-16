@@ -7,7 +7,12 @@ from implemented import user_service
 
 user_ns = Namespace("users")
 
-# @user_ns.route("/")
+@user_ns.route("/")
+class UsersViews(Resource):
+    @auth_required
+    def get(self):
+        users = user_service.get_all()
+        return UserSchema(many=True).dump(users), 200
 # class UsersViews(Resource):
 #     # def post(self):
 #     #     req_json = request.json
