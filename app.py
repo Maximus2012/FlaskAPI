@@ -11,6 +11,14 @@ from views.users import user_ns
 def create_app(config_object: Config) -> Flask:
     app = Flask(__name__)
     app.config.from_object(config_object)
+
+    @app.route("/auth/login")
+    def login():
+        return render_template('index.html')
+
+    @app.route("/auth/register" )
+    def registration():
+        return render_template('regisration.html')
     register_extensions(app)
     return app
 

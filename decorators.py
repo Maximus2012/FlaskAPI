@@ -7,7 +7,8 @@ from constants import JWT_ALGORITHM, JWT_SECRET_KEY
 def auth_required(func):
     def wrapper(*args, **kwargs):
         if "Authorization" not in request.headers:
-            abort(401)
+            print('Вы не вошли в аккаунт')
+            abort(401, "Вы не вошли в аккаунт")
 
         data = request.headers["Authorization"]
         token = data.split("Bearer ")[-1]

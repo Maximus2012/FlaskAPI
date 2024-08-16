@@ -1,26 +1,30 @@
-from flask import request
+from flask import request,render_template
 from flask_restx import Namespace, Resource
 
 from implemented import auth_service, user_service
 
 auth_ns = Namespace("auth")
 
+
+
 @auth_ns.route("/register")
 class AuthRegisterView(Resource):
     def post(self):
+        print('fdfd2222')
         request_json = request.json
         print(request_json)
-        user = user_service.registration(request_json)
+        msg, code = user_service.registration(request_json)
 
-        return "User created", 201, {"location": f"/users/{user.id}"}
+        return msg, code
 
 @auth_ns.route("/login")
 class AuthLoginView(Resource):
     def post(self):
+        print('fdfd111')
         request_json = request.json
+        print(request_json)
         email = request_json.get("email")
         password = request_json.get("password")
-
         if None in [email, password]:
             return "Void insert", 401
 

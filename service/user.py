@@ -18,8 +18,21 @@ class UserService:
         """
         Create User
         """
+        user_email = self.get_by_email(user_data.get("email"))
+        try:
+            if user_email.email == user_data.get("email"):
+                return "Email уже cуществует", 403
+        except:
+            pass
+        user_name = self.get_by_name(user_data.get("name"))
+        try:
+            if user_name.name == user_data.get("name"):
+                return "Имя уже занято", 403
+        except:
+            pass
         user_data["password"] = self.get_hash(user_data.get("password"))
-        return self.dao.registation(user_data)
+        self.dao.registation(user_data)
+        return "User created", 201
 
 
     def update_password(self, user_data: dict):
@@ -28,7 +41,6 @@ class UserService:
         """
 
         user = self.get_by_email(user_data.get("email"))
-        print(self.compare_passwords(user.password, user_data.get("old_password")))
         if self.compare_passwords(user.password, user_data.get("old_password")):
             user_data["password"] = self.get_hash(user_data["password"])
             return self.dao.update_password(user_data), 201
@@ -38,6 +50,12 @@ class UserService:
         Find User via email
         """
         return self.dao.get_by_email(email)
+
+    def get_by_name(self, name: str) -> UserDao:
+        """
+        Find User via email
+        """
+        return self.dao.get_by_name(name)
 
     def get_hash(self, password: str) -> bytes:
         """
