@@ -9,10 +9,11 @@ user_ns = Namespace("users")
 
 @user_ns.route("/")
 class UsersViews(Resource):
-    @auth_required
+
     def get(self):
         users = user_service.get_all()
-        return UserSchema(many=True).dump(users), 200
+        users_schema = UserSchema(many=True).dump(users)
+        return users_schema, 200
 # class UsersViews(Resource):
 #     # def post(self):
 #     #     req_json = request.json

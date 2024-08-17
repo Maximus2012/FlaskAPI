@@ -5,10 +5,13 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Responsive Login Form HTML CSS | CodingNepal</title>
-    <link rel="stylesheet" href="../static/style.css" />
+    <link rel="stylesheet" href="../static/css/style.css" />
     <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+
   </head>
   <body>
+
     <div class="wrapper">
       <div class="title"><span>Login Form</span></div>
         <form action="#" method="post" id="loginform">
@@ -52,9 +55,19 @@
 
             // Отправляем (асинхронно!)
             fetch(request).then(
-                function(response) {
+                async function(response) {
                     // Запрос успешно выполнен
                     console.log(response);
+                    var response_answer =  await response.json()
+                    var access_token = response_answer['access_token']
+                    localStorage.setItem('Authorisation', 'Bearer '+ access_token);
+                    // console.log('Authorisation', 'Bearer '+ access_token)
+                    //  token = localStorage.getItem('Authorisation')
+
+                    // console.log(token)
+                    // let json = JSON.stringify({'Authorisation': token});
+                    //  console.log(json)
+
                     // return response.json() и так далее см. документацию
                 },
                 function(error) {
@@ -67,8 +80,18 @@
             // на запрос, потому что запрос выполняется асинхронно,
             // отдельно от основного кода
             console.log('Запрос отправляется');
-}</script>
-    </div>
 
+}</script>
+<script>
+  function nameFunction() {
+    //Какие-то действия
+    console.log('Im done')
+  }
+</script>
+
+    </div>
   </body>
+<script>
+
+</script>
 </html>
