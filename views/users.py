@@ -21,6 +21,22 @@ class UsersViews(Resource):
 #     #     print(req_json)
 #     #     print(user)
 #     #     return "Creation successed", 201, {"location": f"/users/{user.id}"}
+@user_ns.route("/<int:user_id>")
+class UsersViews(Resource):
+    def delete(self, user_id):
+            user_service.delete(user_id)
+            return "Deleted", 204
+    def get(self, user_id):
+            user = user_service.get_user(user_id)
+            users_schema = UserSchema().dump(user)
+            print(users_schema)
+            return users_schema, 200
+
+    def patch(self, user_id):
+        req_json = request.json
+        req_json["id"] = user_id
+        user_service.update(req_json)
+        return "", 204
 
 @user_ns.route("/password")
 class ChangeUserPassword(Resource):

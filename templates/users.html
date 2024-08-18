@@ -13,11 +13,13 @@
       <div class="title"><span>Users</span></div>
         <div class="row">
           <i class="fas fa-user"></i>
-          gdgdgd
         </div>
 
         <script>
+          token = localStorage.getItem('Authorisation')
+          JSON.stringify(token)
         document.getElementById('regtstrationform').addEventListener('submit', submitForm);
+
 
 
         function submitForm(event) {

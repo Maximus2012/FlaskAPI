@@ -19,21 +19,22 @@ class UserService:
         Create User
         """
         user_email = self.get_by_email(user_data.get("email"))
+        if len(user_data.get("email")) == 0 or len(user_data.get("name")) == 0 or len(user_data.get("password")) == 0:
+            return 'Entered void line', 403
         try:
             if user_email.email == user_data.get("email"):
-                return "Email уже cуществует", 403
+                return "Email already exists", 403
         except:
             pass
         user_name = self.get_by_name(user_data.get("name"))
         try:
             if user_name.name == user_data.get("name"):
-                return "Имя уже занято", 403
+                return "Name already exists", 403
         except:
             pass
         user_data["password"] = self.get_hash(user_data.get("password"))
         self.dao.registation(user_data)
         return "User created", 201
-
 
     def update_password(self, user_data: dict):
         """
@@ -84,3 +85,16 @@ class UserService:
         Return all users
         """
         return self.dao.get_all()
+
+    def delete(self, user_id):
+        return self.dao.delete(user_id)
+
+    def get_user(self, user_id):
+        return self.dao.get_one(user_id)
+
+    def update(self, user_data: dict):
+        """
+        Update user`s data
+        """
+        user_data["password"] = self.get_hash(user_data["password"])
+        self.dao.update(user_data)
