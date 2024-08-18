@@ -1,3 +1,5 @@
+import json
+
 from flask import request
 from flask_restx import Resource, Namespace
 
@@ -7,9 +9,9 @@ from implemented import user_service
 
 user_ns = Namespace("users")
 
-@user_ns.route("/")
+@user_ns.route("/", methods=['GET'])
 class UsersViews(Resource):
-
+    @auth_required
     def get(self):
         users = user_service.get_all()
         users_schema = UserSchema(many=True).dump(users)

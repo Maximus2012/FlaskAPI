@@ -6,7 +6,7 @@ const Edit = () => {
     const {user_id}=useParams()
     const navigate = useNavigate();
     const clickToBackHandler=()=>{
-        navigate('/users');
+        navigate('/users/admin');
     }
 
     const [userField, setUserField] = useState({
@@ -41,7 +41,7 @@ const Edit = () => {
         e.preventDefault();
         try {
             await axios.patch("http://127.0.0.1:25000/users/"+user_id, userField);
-            navigate('/users');
+            navigate('/users/admin');
         } catch (err) {
             console.log("Something Wrong");
         }

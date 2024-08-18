@@ -24,7 +24,7 @@ const View = () => {
     }
 
     const clickToBackHandler=()=>{
-        navigate('/users');
+        navigate('/users/admin');
     }
 
     return <body className="body">

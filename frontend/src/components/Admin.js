@@ -2,8 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 import axios from 'axios'
 import "../styles/admin.css";
+var userData = {}
 const Admin = () => {
-    const [userData, setUSerData] = useState([]);
+  const [userData, setUSerData] = useState([]);
     useEffect(() => {
         fetchData();
     }, [])
@@ -15,7 +16,14 @@ const Admin = () => {
         try {
             const token = localStorage.getItem('Authorisation');
 
-            const result = await axios.get("http://127.0.0.1:25000/users");
+            const result = await axios({
+   url: 'http://127.0.0.1:25000/users/',
+   method: 'get',
+   headers: {
+       Authorization: 'Bearer ' + token
+   }
+})
+;
 
         // handle success
             //console.  log(result.data);
@@ -36,8 +44,7 @@ const Admin = () => {
         })
         setUSerData(newUserData);
     }
-
-    return(
+  return(
         <body className="body">
         <div className="container">
 	<table>
@@ -81,5 +88,6 @@ const Admin = () => {
 
     );
 };
+
 
 export  default Admin;

@@ -13,17 +13,6 @@ def create_app(config_object: Config) -> Flask:
     app.config.from_object(config_object)
     app.app_context().push()
 
-    # @app.route("/auth/login")
-    # def login():
-    #     return render_template('index.html')
-    #
-    # @app.route("/auth/register")
-    # def registration():
-    #     return render_template('regisration.html')
-    #
-    # @app.route("/users")
-    # def users():
-    #     return render_template('users.html')
 
     register_extensions(app)
 
@@ -38,7 +27,7 @@ def register_extensions(app: Flask) -> None:
     with app.app_context():
         db.create_all()
     api = Api(
-        #authorizations={'Bearer': {'name': 'Authorization', 'in': 'header', 'description': 'Authorization: Bearer <access_token>', 'required': 'true'}},
+        authorizations={'Bearer': {'name': 'Authorization', 'in': 'header', 'description': 'Authorization: Bearer <access_token>', 'required': 'true'}},
         title="My Flask Project",
         doc='/docs')
     api.init_app(app)

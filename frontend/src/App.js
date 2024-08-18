@@ -16,7 +16,7 @@ function App() {
             <Route exact path="/auth/register" element={<Register/>}></Route>
             <Route exact path="/users/:user_id" element={<View/>}/>
               <Route exact path="/users/patch/:user_id" element={<Edit/>}/>
-            <Route exact path="/users" element={<Admin/>}></Route>
+            <Route exact path="/users/admin" element={<Admin/>}></Route>
         </Routes>
       </Router>
     </div>
