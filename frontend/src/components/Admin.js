@@ -1,15 +1,13 @@
-import React, { useState, useEffect } from 'react';
-import { NavLink } from 'react-router-dom';
+import React, {useState, useEffect} from 'react';
+import {NavLink} from 'react-router-dom';
 import axios from 'axios'
 import "../styles/admin.css";
-var userData = {}
+
 const Admin = () => {
-  const [userData, setUSerData] = useState([]);
+    const [userData, setUSerData] = useState([]);
     useEffect(() => {
         fetchData();
     }, [])
-
-
 
 
     const fetchData = async () => {
@@ -17,15 +15,15 @@ const Admin = () => {
             const token = localStorage.getItem('Authorisation');
 
             const result = await axios({
-   url: 'http://127.0.0.1:25000/users/',
-   method: 'get',
-   headers: {
-       Authorization: 'Bearer ' + token
-   }
-})
-;
+                    url: 'http://127.0.0.1:25000/users/',
+                    method: 'get',
+                    headers: {
+                        Authorization: 'Bearer ' + token
+                    }
+                })
+            ;
 
-        // handle success
+            // handle success
             //console.  log(result.data);
             setUSerData(result.data)
         } catch (err) {
@@ -34,60 +32,69 @@ const Admin = () => {
     }
 
 
-    const handleDelete=async(id)=>{
+    const handleDelete = async (id) => {
         console.log(id);
-        await axios.delete("http://127.0.0.1:25000/users/"+id);
-        const newUserData=userData.filter((item)=>{
-            return(
-                item.id !==id
+        const token = localStorage.getItem('Authorisation');
+        await axios({
+            url: 'http://127.0.0.1:25000/users/' + id,
+            method: 'delete',
+            headers: {
+                Authorization: 'Bearer ' + token
+            }
+        });
+        const newUserData = userData.filter((item) => {
+            return (
+                item.id !== id
             )
         })
         setUSerData(newUserData);
     }
-  return(
+    return (
         <body className="body">
         <div className="container">
-	<table>
-		<thead>
-			<tr>
-				<th>ID</th>
-				<th>Email</th>
-				<th>Name</th>
-				<th>Password</th>
-				<th>Action</th>
-			</tr>
-		</thead>
-		<tbody>
-         {
+            <table>
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Email</th>
+                    <th>Name</th>
+                    <th>Password</th>
+                    <th>Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                {
                     userData.map((user, i) => {
                         return (
-                            <tr >
+                            <tr>
                                 <td>{user.id}</td>
                                 <td>{user.name} </td>
                                 <td>{user.email} </td>
                                 <td>{user.password} </td>
                                 <td>
 
-                                    <button className="btn-new-blue" onClick={()=> window.location.href=`/users/${user.id}`}> View</button>
-                                    <button className="btn-new-green" onClick={()=> window.location.href= `/users/patch/${user.id}`}>Edit</button>
-                                    <button onClick={()=>handleDelete(user.id)} className="btn-new-red  ">Delete</button>
+                                    <button className="btn-new-blue"
+                                            onClick={() => window.location.href = `/users/${user.id}`}> View
+                                    </button>
+                                    <button className="btn-new-green"
+                                            onClick={() => window.location.href = `/users/patch/${user.id}`}>Edit
+                                    </button>
+                                    <button onClick={() => handleDelete(user.id)} className="btn-new-red  ">Delete
+                                    </button>
                                 </td>
                             </tr>
                         )
                     })
                 }
-		</tbody>
-	</table>
-</div>
+                </tbody>
+            </table>
+        </div>
 
-</body>
-
-
-
+        </body>
 
 
     );
 };
 
 
-export  default Admin;
+export default Admin;

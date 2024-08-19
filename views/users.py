@@ -25,15 +25,17 @@ class UsersViews(Resource):
 #     #     return "Creation successed", 201, {"location": f"/users/{user.id}"}
 @user_ns.route("/<int:user_id>")
 class UsersViews(Resource):
+    @auth_required
     def delete(self, user_id):
             user_service.delete(user_id)
             return "Deleted", 204
+    @auth_required
     def get(self, user_id):
             user = user_service.get_user(user_id)
             users_schema = UserSchema().dump(user)
-            print(users_schema)
             return users_schema, 200
 
+    @auth_required
     def patch(self, user_id):
         req_json = request.json
         req_json["id"] = user_id
