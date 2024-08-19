@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import {NavLink} from 'react-router-dom';
 import axios from 'axios'
-import "../styles/admin.css";
+import admin from "../styles/admin.module.css";
 
 const Admin = () => {
     const [userData, setUSerData] = useState([]);
@@ -50,8 +50,8 @@ const Admin = () => {
         setUSerData(newUserData);
     }
     return (
-        <body className="body">
-        <div className="container">
+        <body className={admin.body}>
+        <div className={admin.container}>
             <table>
                 <thead>
                 <tr>
@@ -68,18 +68,18 @@ const Admin = () => {
                         return (
                             <tr>
                                 <td>{user.id}</td>
-                                <td>{user.name} </td>
                                 <td>{user.email} </td>
+                                <td>{user.name} </td>
                                 <td>{user.password} </td>
                                 <td>
 
-                                    <button className="btn-new-blue"
+                                    <button className={admin.btnnewblue}
                                             onClick={() => window.location.href = `/users/${user.id}`}> View
                                     </button>
-                                    <button className="btn-new-green"
+                                    <button className={admin.btnnewgreen}
                                             onClick={() => window.location.href = `/users/patch/${user.id}`}>Edit
                                     </button>
-                                    <button onClick={() => handleDelete(user.id)} className="btn-new-red  ">Delete
+                                    <button onClick={() => handleDelete(user.id)} className={admin.btnnewred}>Delete
                                     </button>
                                 </td>
                             </tr>

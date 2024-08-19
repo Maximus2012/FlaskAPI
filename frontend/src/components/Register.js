@@ -1,7 +1,8 @@
 import React, {useEffect, useState} from "react";
 import axios from "axios";
-import "../styles/Login.css";
+import register from "../styles/Login.module.css";
 import {useNavigate} from "react-router-dom";
+import login from "../styles/Login.module.css";
 
 var answer = ''
 const Register = () => {
@@ -46,33 +47,35 @@ const Register = () => {
         return <Register/>
     }
     return (
-        <div className="wrapper">
-            <div className="title"><span>Register Form</span></div>
+         <body  className={login.body}>
+        <div className={login.wrapper}>
+            <div className={login.title}><span>Register Form</span></div>
             <form action="#" method="post" id="loginform">
-                <div className="row">
-                    <i className="fas fa-user"></i>
+                <div className={login.row}>
+                    <i className={`${login.fas} `}></i>
                     <input name="email" type="text" placeholder="Email" required
                            onChange={e => changeUserFieldHandler(e)}/>
                 </div>
-                <div className="row">
-                    <i className="fas fa-user"></i>
+                <div className={login.row}>
+                    <i className={`${login.fas} `}></i>
                     <input name="name" type="text" placeholder="Name" required
                            onChange={e => changeUserFieldHandler(e)}/>
                 </div>
-                <div className="row">
-                    <i className="fas fa-lock"></i>
+                <div className={login.row}>
+                    <i className={`${login.fas}`}></i>
                     <input name="password" type="password" placeholder="Password" required
                            onChange={e => changeUserFieldHandler(e)}/>
                 </div>
-                <div className="pass"><a href="#">Forgot password?</a></div>
-                <div className="row button">
-                    <input type="submit" value="Register" onClick={e => onSubmitChange(e)}/>
+                <div className={`${login.button} ${login.row}`}>
+                    <input type="submit" value="Login" onClick={e => onSubmitChange(e)}/>
                 </div>
-                <div className="signup-link">Already exist? <a href="/auth/login">Sign in now</a></div>
+                 <div className={login.signuplink}>Already exist? <a href="/auth/login">Sign in now</a></div>
 
             </form>
-            <div className="signup-link"> {answer}</div>
+
         </div>
+        </body>
+
     )
 };
 

@@ -1,6 +1,7 @@
 import React, {useState} from "react";
-import "../styles/Login.css";
+import login from "../styles/Login.module.css";
 import axios from "axios";
+
 
 const Login = () => {
     const [userField, setUserField] = useState({
@@ -37,28 +38,29 @@ const Login = () => {
     }
 
     return (
-        <div className="wrapper">
-            <div className="title"><span>Login Form</span></div>
+         <body  className={login.body}>
+        <div className={login.wrapper}>
+            <div className={login.title}><span>Login Form</span></div>
             <form action="#" method="post" id="loginform">
-                <div className="row">
-                    <i className="fas fa-user"></i>
+                <div className={login.row}>
+                    <i className={`${login.fas} `}></i>
                     <input name="email" type="text" placeholder="Email" required
                            onChange={e => changeUserFieldHandler(e)}/>
                 </div>
-                <div className="row">
-                    <i className="fas fa-lock"></i>
+                <div className={login.row}>
+                    <i className={`${login.fas}`}></i>
                     <input name="password" type="password" placeholder="Password" required
                            onChange={e => changeUserFieldHandler(e)}/>
                 </div>
-                <div className="pass"><a href="#">Forgot password?</a></div>
-                <div className="row button">
+                <div className={login.pass}><a href="#">Forgot password?</a></div>
+                <div className={`${login.button} ${login.row}`}>
                     <input type="submit" value="Login" onClick={e => onSubmitChange(e)}/>
                 </div>
-                <div className="signup-link">Not a member? <a href="/auth/register">Sign up now</a></div>
+                <div className={login.signuplink}>Not a member? <a href="/auth/register">Sign up now</a></div>
             </form>
 
         </div>
-
+        </body>
     )
 };
 

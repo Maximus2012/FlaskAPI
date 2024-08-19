@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import axios from 'axios';
 import {useNavigate, useParams} from 'react-router-dom';
+import login from "../styles/Login.module.css";
 
 const Edit = () => {
     const {user_id} = useParams()
@@ -62,35 +63,38 @@ const Edit = () => {
     }
 
     return (
-        <div className="wrapper">
-            <div className="title"><span>Change Form</span></div>
-            <form action="#" method="patch" id="loginform">
-                <div className="row">
-                    <i className="fas fa-user"></i>
-                    <input name="name" type="text" placeholder="Name" required
-                           onChange={e => changeUserFieldHandler(e)}/>
-                </div>
-                <div className="row">
-                    <i className="fas fa-user"></i>
+
+          <body  className={login.body}>
+        <div className={login.wrapper}>
+            <div className={login.title}><span>Update Form</span></div>
+            <form action="#" method="post" id="loginform">
+                <div className={login.row}>
+                    <i className={`${login.fas} `}></i>
                     <input name="email" type="text" placeholder="Email" required
                            onChange={e => changeUserFieldHandler(e)}/>
                 </div>
-                <div className="row">
-                    <i className="fas fa-lock"></i>
+                <div className={login.row}>
+                    <i className={`${login.fas} `}></i>
+                    <input name="name" type="text" placeholder="Name" required
+                           onChange={e => changeUserFieldHandler(e)}/>
+                </div>
+                <div className={login.row}>
+                    <i className={`${login.fas}`}></i>
                     <input name="password" type="password" placeholder="Password" required
                            onChange={e => changeUserFieldHandler(e)}/>
                 </div>
-
-                <div className="row button">
-                    <input type="submit" value="Change data" onClick={e => onSubmitChange(e)}/>
+                <div className={`${login.button} ${login.row}`}>
+                    <input type="submit" value="Update" onClick={e => onSubmitChange(e)}/>
                 </div>
 
 
             </form>
-            <div className='aling-center'>
-                <button className='btn-center btn-new-green' onClick={clickToBackHandler}>Back To Home</button>
+        <div className={login.alingcenter}>
+                <button className={`${login.btncenter} ${login.btnnewgreen}`} onClick={clickToBackHandler}>Back To Home</button>
             </div>
         </div>
+        </body>
+
     )
 };
 

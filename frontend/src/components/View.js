@@ -1,6 +1,8 @@
 import axios from 'axios';
 import React, {useState, useEffect} from 'react';
 import {useParams, useNavigate, NavLink} from 'react-router-dom';
+import admin from "../styles/admin.module.css";
+import login from "../styles/Login.module.css";
 
 const View = () => {
     const {user_id} = useParams();
@@ -35,13 +37,13 @@ const View = () => {
         navigate('/users/admin');
     }
 
-    return <body className="body">
-    <div className="container">
+    return <body className={admin.body}>
+    <div className={admin.container}>
         <table>
             <thead>
             <tr>
                 <th>ID</th>
-                <th>Emale</th>
+                <th>Email</th>
                 <th>Name</th>
             </tr>
             </thead>
@@ -60,8 +62,8 @@ const View = () => {
             </tbody>
 
         </table>
-        <div className='aling-center'>
-            <button className='btn-center btn-new-green' onClick={clickToBackHandler}>Back To Home</button>
+        <div className={login.alingcenter}>
+            <button className={`${login.btncenter} ${login.btnnewgreen}`} onClick={clickToBackHandler}>Back To Home</button>
         </div>
 
     </div>
