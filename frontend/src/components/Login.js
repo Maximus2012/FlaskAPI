@@ -28,7 +28,9 @@ const Login = () => {
             setLoading(true);
             var response_answer = await responce
             var access_token = response_answer['data']['access_token']
+            var role = response_answer['data']['role']
             localStorage.setItem('Authorisation', access_token);
+            localStorage.setItem('Role', role);
         } catch (err) {
             console.log("Something Wrong");
         }

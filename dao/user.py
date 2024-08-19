@@ -1,4 +1,4 @@
-from dao.model.user import User
+from dao.model.user import User, Role, UserRoles
 
 
 # User's Functional
@@ -10,7 +10,21 @@ class UserDao:
         user = User(**user_data)
         self.session.add(user)
         self.session.commit()
+        role_id = self.get_role(user.id)
+        print(user.id)
+        print(role_id)
+        data = {'user_id': user.id, 'role_id':3}
+        role_data = UserRoles(**data)
+        self.session.add(role_data)
+        self.session.commit()
         return user
+
+    def regisration_role(self, role_data):
+        role = Role(**role_data)
+        self.session.add(role)
+        self.session.commit()
+        return role
+
 
     def get_one(self, user_id):
         return self.session.query(User).get(user_id)
@@ -46,3 +60,17 @@ class UserDao:
 
         self.session.add(user)
         self.session.commit()
+
+
+    def get_role(self, user_id):
+
+        role = self.session.query(UserRoles).filter(UserRoles.user_id == user_id).first()
+
+        return role
+
+    def registation_role(self, user_data):
+        role = UserRoles(**user_data)
+        self.session.add(role)
+        self.session.commit()
+
+        return role

@@ -33,7 +33,11 @@ class UserService:
         except:
             pass
         user_data["password"] = self.get_hash(user_data.get("password"))
-        self.dao.registation(user_data)
+
+
+        user_id = self.dao.registation(user_data)
+
+        print(user_id.id)
         return "User created", 201
 
     def update_password(self, user_data: dict):
@@ -98,3 +102,11 @@ class UserService:
         """
         user_data["password"] = self.get_hash(user_data["password"])
         self.dao.update(user_data)
+
+    def get_user_role(self, user_id):
+        return self.dao.get_role(user_id)
+
+    def registration_role(self, role_data):
+        self.dao.registation_role(role_data)
+        return "Role created", 201
+

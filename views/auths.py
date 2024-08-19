@@ -18,13 +18,13 @@ auth_ns = Namespace("auth")
 class AuthRegisterView(Resource):
     def post(self):
         request_json = request.json
-        print(request_json)
         msg, code = user_service.registration(request_json)
 
         return msg, code
 
 @auth_ns.route("/login")
 class AuthLoginView(Resource):
+
 
     def post(self):
         request_json = request.json
@@ -34,6 +34,9 @@ class AuthLoginView(Resource):
             return "Void insert", 401
 
         token = auth_service.generate_token(email, password)
+        role = user_service.get_by_email(request_json.get('email'))
+        get_role = user_service.get_user_role(role.id)
+        token['role'] = get_role.role_id
         return token
     def put(self):
         request_json = request.json

@@ -13,12 +13,14 @@ const Admin = () => {
     const fetchData = async () => {
         try {
             const token = localStorage.getItem('Authorisation');
-
+            const role = localStorage.getItem('Role');
+            console.log(role)
             const result = await axios({
                     url: 'http://127.0.0.1:25000/users/',
                     method: 'get',
                     headers: {
-                        Authorization: 'Bearer ' + token
+                        Authorization: 'Bearer ' + token,
+                        Role: role
                     }
                 })
             ;
@@ -35,11 +37,13 @@ const Admin = () => {
     const handleDelete = async (id) => {
         console.log(id);
         const token = localStorage.getItem('Authorisation');
+        const role = localStorage.getItem('Role');
         await axios({
             url: 'http://127.0.0.1:25000/users/' + id,
             method: 'delete',
             headers: {
-                Authorization: 'Bearer ' + token
+                Authorization: 'Bearer ' + token,
+                Role: role
             }
         });
         const newUserData = userData.filter((item) => {

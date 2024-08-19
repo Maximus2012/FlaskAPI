@@ -17,12 +17,14 @@ const View = () => {
     const fetchUser = async () => {
         try {
             const token = localStorage.getItem('Authorisation');
+            const role = localStorage.getItem('Role');
             const result = await axios.get("http://127.0.0.1:25000/users/" + user_id,
                 {
                 url: 'http://127.0.0.1:25000/users/',
                 method: 'get',
                 headers: {
-                    Authorization: 'Bearer ' + token
+                    Authorization: 'Bearer ' + token,
+                    Role: role
                 }
             });
             console.log(result.data);
