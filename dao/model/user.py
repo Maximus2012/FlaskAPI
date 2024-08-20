@@ -17,11 +17,17 @@ class UserSchema(Schema):
     name = fields.Str()
     password = fields.Str()
 
-class UserRoles(Schema):
+class UserRolesSchema1(Schema):
+    id = fields.Int()
+    email = fields.Str()
+    name = fields.Str()
+    password = fields.Str()
+    role_id = fields.Int()
+
+class UserRolesSchema(Schema):
     id = fields.Int()
     user_id = fields.Int()
     role_id = fields.Int()
-
 
 class Role(db.Model):
     __tablename__ = 'roles'

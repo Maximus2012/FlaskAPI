@@ -1,5 +1,4 @@
 import React, {useState, useEffect} from 'react';
-import {NavLink} from 'react-router-dom';
 import axios from 'axios'
 import admin from "../styles/admin.module.css";
 
@@ -16,7 +15,7 @@ const Admin = () => {
             const role = localStorage.getItem('Role');
             console.log(role)
             const result = await axios({
-                    url: 'http://127.0.0.1:25000/users/',
+                    url: 'http://127.0.0.1:25000/users/role',
                     method: 'get',
                     headers: {
                         Authorization: 'Bearer ' + token,
@@ -27,6 +26,7 @@ const Admin = () => {
 
             // handle success
             //console.  log(result.data);
+            console.log(result.data)
             setUSerData(result.data)
         } catch (err) {
             console.log("something Wrong");
@@ -63,6 +63,7 @@ const Admin = () => {
                     <th>Email</th>
                     <th>Name</th>
                     <th>Password</th>
+                    <th>Role_ID</th>
                     <th>Action</th>
                 </tr>
                 </thead>
@@ -75,6 +76,7 @@ const Admin = () => {
                                 <td>{user.email} </td>
                                 <td>{user.name} </td>
                                 <td>{user.password} </td>
+                                <td>{user.role_id} </td>
                                 <td>
 
                                     <button className={admin.btnnewblue}

@@ -61,6 +61,14 @@ class UserDao:
         self.session.add(user)
         self.session.commit()
 
+    def update_role(self, user_data):
+        user = self.get_role(user_data.get("user_id"))
+        if user_data.get("role_id") is not None:
+            user.role_id = user_data.get("role_id")
+
+        self.session.add(user)
+        self.session.commit()
+
 
     def get_role(self, user_id):
 
@@ -74,3 +82,6 @@ class UserDao:
         self.session.commit()
 
         return role
+
+    def get_all_role(self):
+        return self.session.query(UserRoles).all()

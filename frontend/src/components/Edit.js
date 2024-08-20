@@ -65,6 +65,24 @@ const Edit = () => {
             console.log("Something Wrong");
         }
     }
+        const onSubmitChangeRole = async (e) => {
+        e.preventDefault();
+        try {
+            const token = localStorage.getItem('Authorisation');
+            const role = localStorage.getItem('Role');
+            await axios.patch("http://127.0.0.1:25000/users/role/" + user_id, userField, {
+                url: 'http://127.0.0.1:25000/users/role/',
+                method: 'patch',
+                headers: {
+                    Authorization: 'Bearer ' + token,
+                    Role: role
+                }
+            });
+            navigate('/users/admin');
+        } catch (err) {
+            console.log("Something Wrong");
+        }
+    }
 
     return (
 
@@ -93,9 +111,21 @@ const Edit = () => {
 
 
             </form>
+               <form action="#" method="post" id="loginform">
+                <div className={login.row}>
+                    <i className={`${login.fas} `}></i>
+                    <input name="role_id" type="text" placeholder="Role_id" required
+                           onChange={e => changeUserFieldHandler(e)}/>
+                    <div className={`${login.button} ${login.row}`}>
+                    <input type="submit" value="Update" onClick={e => onSubmitChangeRole(e)}/>
+                </div>
+                </div>
+                    </form>
+
         <div className={login.alingcenter}>
                 <button className={`${login.btncenter} ${login.btnnewgreen}`} onClick={clickToBackHandler}>Back To Home</button>
             </div>
+
         </div>
         </body>
 

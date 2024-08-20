@@ -103,10 +103,22 @@ class UserService:
         user_data["password"] = self.get_hash(user_data["password"])
         self.dao.update(user_data)
 
+    def update_role(self, user_data: dict):
+        """
+        Update user`s data
+        """
+
+        self.dao.update_role(user_data)
     def get_user_role(self, user_id):
         return self.dao.get_role(user_id)
 
     def registration_role(self, role_data):
         self.dao.registation_role(role_data)
         return "Role created", 201
+
+    def get_all_role(self):
+        """
+        Return all users
+        """
+        return self.dao.get_all_role()
 

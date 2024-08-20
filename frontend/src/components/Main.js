@@ -1,17 +1,13 @@
-import React, {useEffect, useState} from "react";
-import axios from "axios";
-import register from "../styles/Login.module.css";
-import {useNavigate} from "react-router-dom";
+import React, {useState} from "react";
 import login from "../styles/Login.module.css";
+import axios from "axios";
 
-var answer = ''
-const Register = () => {
+
+const Main = () => {
     const [userField, setUserField] = useState({
         email: "",
-        name: "",
         password: ""
     });
-    const navigate = useNavigate();
 
     const changeUserFieldHandler = (e) => {
         setUserField({
@@ -26,30 +22,27 @@ const Register = () => {
     const onSubmitChange = async (e) => {
         e.preventDefault();
         try {
-            const responce = await axios.post("http://127.0.0.1:25000/auth/register", userField);
+            const responce = await axios.post("http://127.0.0.1:25000/auth/login", userField);
             console.log(responce)
-            setLoading(true);
-            var response_answer = await responce
-            console.log(response_answer)
-            answer = 'Registration succeed'
-            navigate('/auth/login')
-        } catch (err) {
 
             setLoading(true);
-            const responce = await err
-            console.log(responce)
-            answer = responce['response']['data']
+            var response_answer = await responce
+            var access_token = response_answer['data']['access_token']
+            var role = response_answer['data']['role']
+            localStorage.setItem('Authorisation', access_token);
+            localStorage.setItem('Role', role);
+        } catch (err) {
             console.log("Something Wrong");
-            console.log(answer)
         }
     }
     if (loading) {
-        return <Register/>
+        return <Main/>
     }
+
     return (
          <body  className={login.body}>
         <div className={login.wrapper}>
-            <div className={login.title}><span>Register Form</span></div>
+            <div className={login.title}><span>Login Form</span></div>
             <form action="#" method="post" id="loginform">
                 <div className={login.row}>
                     <i className={`${login.fas} `}></i>
@@ -57,26 +50,22 @@ const Register = () => {
                            onChange={e => changeUserFieldHandler(e)}/>
                 </div>
                 <div className={login.row}>
-                    <i className={`${login.fas} `}></i>
-                    <input name="name" type="text" placeholder="Name" required
-                           onChange={e => changeUserFieldHandler(e)}/>
-                </div>
-                <div className={login.row}>
                     <i className={`${login.fas}`}></i>
                     <input name="password" type="password" placeholder="Password" required
                            onChange={e => changeUserFieldHandler(e)}/>
                 </div>
+                <div className={login.pass}><a href="#">Forgot password?</a></div>
                 <div className={`${login.button} ${login.row}`}>
-                    <input type="submit" value="Register" onClick={e => onSubmitChange(e)}/>
+                    <input type="submit" value="Login" onClick={e => onSubmitChange(e)}/>
                 </div>
-                 <div className={login.signuplink}>Already exist? <a href="/auth/login">Sign in now</a></div>
-
+                <div className={login.signuplink}>Not a member? <a href="/auth/register">Sign up now</a></div>
             </form>
 
         </div>
         </body>
-
     )
 };
 
-export default Register;
+
+export default Main;
+

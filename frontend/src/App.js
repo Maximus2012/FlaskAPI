@@ -7,6 +7,7 @@ import Admin from "./components/Admin";
 
 import View from "./components/View";
 import Edit from "./components/Edit";
+import Main from "./components/Main";
 function App() {
   return (
     <div className="App">
@@ -17,6 +18,7 @@ function App() {
             <Route exact path="/users/:user_id" element={<View/>}/>
               <Route exact path="/users/patch/:user_id" element={<Edit/>}/>
             <Route exact path="/users/admin" element={<Admin/>}></Route>
+          <Route exact path={"/"} element={<Main/>}></Route>
         </Routes>
       </Router>
     </div>
