@@ -5,7 +5,7 @@ from config import Config
 from setup_db import db
 from views.auths import auth_ns
 from views.users import user_ns
-
+from views.menu import category_ns
 
 
 def create_app(config_object: Config) -> Flask:
@@ -33,6 +33,7 @@ def register_extensions(app: Flask) -> None:
     api.init_app(app)
     api.add_namespace(user_ns)
     api.add_namespace(auth_ns)
+    api.add_namespace(category_ns)
     # Add namespaces
 
 
