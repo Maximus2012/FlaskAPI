@@ -18,9 +18,27 @@ class UserService:
         """
         Create User
         """
+        user_email = self.get_by_email(user_data.get("email"))
+        if len(user_data.get("email")) == 0 or len(user_data.get("name")) == 0 or len(user_data.get("password")) == 0:
+            return 'Entered void line', 403
+        try:
+            if user_email.email == user_data.get("email"):
+                return "Email already exists", 403
+        except:
+            pass
+        user_name = self.get_by_name(user_data.get("name"))
+        try:
+            if user_name.name == user_data.get("name"):
+                return "Name already exists", 403
+        except:
+            pass
         user_data["password"] = self.get_hash(user_data.get("password"))
-        return self.dao.registation(user_data)
 
+
+        user_id = self.dao.registation(user_data)
+
+        print(user_id.id)
+        return "User created", 201
 
     def update_password(self, user_data: dict):
         """
@@ -28,7 +46,6 @@ class UserService:
         """
 
         user = self.get_by_email(user_data.get("email"))
-        print(self.compare_passwords(user.password, user_data.get("old_password")))
         if self.compare_passwords(user.password, user_data.get("old_password")):
             user_data["password"] = self.get_hash(user_data["password"])
             return self.dao.update_password(user_data), 201
@@ -38,6 +55,12 @@ class UserService:
         Find User via email
         """
         return self.dao.get_by_email(email)
+
+    def get_by_name(self, name: str) -> UserDao:
+        """
+        Find User via email
+        """
+        return self.dao.get_by_name(name)
 
     def get_hash(self, password: str) -> bytes:
         """
@@ -60,3 +83,42 @@ class UserService:
             PWD_HASH_SALT,
             PWD_HASH_ITERATIONS
         )))
+
+    def get_all(self):
+        """
+        Return all users
+        """
+        return self.dao.get_all()
+
+    def delete(self, user_id):
+        return self.dao.delete(user_id)
+
+    def get_user(self, user_id):
+        return self.dao.get_one(user_id)
+
+    def update(self, user_data: dict):
+        """
+        Update user`s data
+        """
+        user_data["password"] = self.get_hash(user_data["password"])
+        self.dao.update(user_data)
+
+    def update_role(self, user_data: dict):
+        """
+        Update user`s data
+        """
+
+        self.dao.update_role(user_data)
+    def get_user_role(self, user_id):
+        return self.dao.get_role(user_id)
+
+    def registration_role(self, role_data):
+        self.dao.registation_role(role_data)
+        return "Role created", 201
+
+    def get_all_role(self):
+        """
+        Return all users
+        """
+        return self.dao.get_all_role()
+

@@ -33,7 +33,8 @@ class AuthService:
 
         refresh_token_lifetime = datetime.datetime.utcnow() + datetime.timedelta(days=130)
         data["exp"] = calendar.timegm(refresh_token_lifetime.timetuple())
-        refresh_token = jwt.encode(data, JWT_SECRET_KEY, algorithm=JWT_ALGORITHM)
+        refresh_token = jwt.encode(data, JWT_SECRET_KEY, algorithm=JWT_ALGORITHM)  
+
         return {"access_token": access_token, "refresh_token": refresh_token}
 
     def check_token(self, refresh_token):

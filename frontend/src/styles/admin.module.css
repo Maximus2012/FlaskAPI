@@ -1,0 +1,149 @@
+html,
+body {
+	height: 100%;
+
+}
+body {
+	margin: 0;
+	background: linear-gradient(45deg, #49a09d, #5f2c82);
+	font-family: sans-serif;
+	font-weight: 80;
+
+
+}
+
+
+.container {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	margin-top: 50px;
+}
+
+table {
+	width: 1700px;
+	border-collapse: collapse;
+	overflow: hidden;
+	box-shadow: 0 0 20px rgba(0,0,0,0.1);
+}
+
+th,
+td {
+	padding: 15px;
+	background-color: rgba(255,255,255,0.2);
+	color: #fff;
+	text-align: center;
+}
+
+th {
+	text-align: center;
+}
+
+
+.btnnewred {
+    text-align: center;
+    transition: 0.5s;
+	 min-width: 100px;
+	min-height: 30px;
+    background-size: 200% auto;
+    color: white;
+    border-radius: 10px;
+	border: 0;
+    background-image: linear-gradient(to right, #c50000 0%, #f60b0b 51%, #c50000 100%);
+}
+
+.btnnewred:hover {
+     background-position: right center;
+}
+
+.btnnewblue {
+    text-align: center;
+    transition: 0.5s;
+	 min-width: 100px;
+	min-height: 30px;
+    background-size: 200% auto;
+    color: white;
+    border-radius: 10px;
+	border: 0;
+    background-image: linear-gradient(to right, #004fc5 0%, #0b71f6 51%, #0055c5 100%);
+}
+
+.btnnewblue:hover {
+     background-position: right center;
+}
+
+.btnnewgreen {
+    text-align: center;
+    transition: 0.5s;
+	 min-width: 100px;
+	min-height: 30px;
+    background-size: 200% auto;
+	margin-left: 20px;
+	margin-right: 20px;
+    color: white;
+    border-radius: 10px;
+	border: 0;
+    background-image: linear-gradient(to right, #24c500 0%, #0bf60f 51%, #31c500 100%);
+}
+
+.btnnewgreen:hover {
+     background-position: right center;
+}
+.btncenter{
+	text-align: center;
+	margin-bottom: 20px;
+
+}
+.size{
+	width: 500px;
+	height: 120px;
+}
+.aling-center{
+	padding-top: 20px;
+	display: flex;
+  justify-content: center;
+}
+thead {
+	th {
+		background-color: #55608f;
+	}
+}
+
+tbody {
+	tr {
+		&:hover {
+			background-color: rgba(255,255,255,0.3);
+		}
+	}
+	td {
+		position: relative;
+		&:hover {
+			&:before {
+				content: "";
+				position: absolute;
+				left: 0;
+				right: 0;
+				top: -9999px;
+				bottom: -9999px;
+				background-color: rgba(255,255,255,0.2);
+				z-index: -1;
+			}
+		}
+	}
+}
+
+.topic {
+  font-size: 13px;
+  font-weight: 400;
+  letter-spacing: 1px;
+	background-color: red;
+	border-width: 0;
+}
+
+.topic-heading {
+  font-size: 30px;
+  letter-spacing: 3px;
+}
+
+
