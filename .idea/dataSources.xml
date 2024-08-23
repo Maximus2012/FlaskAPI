@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="restaraunt.db" uuid="85d06098-df88-4348-a6f1-58f095307534">
+    <data-source source="LOCAL" name="restaraunt.db" uuid="e0b4de3f-e69a-4bc9-a458-ab99070138fc">
       <driver-ref>sqlite.xerial</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
