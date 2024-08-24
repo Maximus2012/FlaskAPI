@@ -4,4 +4,5 @@ class Config(object):
     SECRET_HERE = '249y823r9v8238r9u'
     SQLALCHEMY_DATABASE_URI = 'sqlite:///./restaraunt.db'
     SQLALCHEMY_TRACK_MODIFICATIONS = False
-
+    UPLOAD_FOLDER = 'frontend/src/Main/img/ingredients'
+    ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg'])

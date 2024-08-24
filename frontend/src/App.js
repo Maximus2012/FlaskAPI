@@ -8,6 +8,11 @@ import Admin from "./components/Admin";
 import View from "./components/View";
 import Edit from "./components/Edit";
 import Main from "./components/Main";
+import Product from "./components/AddProduct";
+import RestarauntProduct from "./components/Restaraunt";
+import ViewProduct from "./components/ViewProduct";
+import EditProduct from "./components/EditProduct";
+import React from "react";
 function App() {
   return (
     <div className="App">
@@ -19,6 +24,12 @@ function App() {
               <Route exact path="/users/patch/:user_id" element={<Edit/>}/>
             <Route exact path="/users/admin" element={<Admin/>}></Route>
           <Route exact path={"/"} element={<Main/>}></Route>
+          <Route exact path={"/product"} element={<Product/>}></Route>
+          <Route exact path={"/restaraunt/product"} element={<RestarauntProduct/>}></Route>
+          <Route exact path={"/restaraunt/product/:user_id"} element={<ViewProduct/>}></Route>
+          <Route exact path={"/restaraunt/edit/product/:user_id"} element={<EditProduct/>}></Route>
+
+
         </Routes>
       </Router>
     </div>
