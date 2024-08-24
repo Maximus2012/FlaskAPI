@@ -1,6 +1,6 @@
 
 from dao.model.menu import Categories_ID, Category
-
+import os
 # User's Functional
 class CategoryDao:
 
@@ -44,6 +44,7 @@ class CategoryDao:
         category = self.get_Category_one(user_data.get("id"))
 
         if user_data.get("img") is not None:
+
             category.img = user_data.get("img")
         if user_data.get("name") is not None:
             category.name = user_data.get("name")
@@ -69,6 +70,7 @@ class CategoryDao:
 
     def delete(self, user_id):
         del_category = self.session.query(Categories_ID).get(user_id)
+        os.remove(f'frontend/src/Main/img/ingredients/{del_category.img}')
         self.session.delete(del_category)
         self.session.commit()
 

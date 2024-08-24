@@ -61,9 +61,28 @@ class UsersViews(Resource):
             return "Deleted", 204
 
     def patch(self, user_id):
-        req_json = request.json
-        req_json["id"] = user_id
-        category_service.update(req_json)
+        try:
+            print('fdfd')
+            file = request.files['file']
+            categories = category_service.get_user(user_id)
+            os.remove(f'frontend/src/Main/img/ingredients/{categories.img}')
+            target = os.path.join('frontend/src/Main/img/', 'ingredients')
+
+            filename = secure_filename(file.filename)
+            destination = "/".join([target, filename])
+            global file_name
+            file_name = file.filename
+            file.save(destination)
+
+
+        except:
+            req_json = request.json
+            req_json["id"] = user_id
+            req_json['img'] = file_name
+            category_service.update(req_json)
+
+
+
         return "", 204
 @category_ns.route("/type", methods=['GET', 'POST'])
 class UsersViews(Resource):
@@ -85,6 +104,7 @@ class UsersViews(Resource):
 class UsersViews(Resource):
     def delete(self, category_id):
             category_service.delete_category(category_id)
+
             return "Deleted", 204
 
     def get(self, category_id):

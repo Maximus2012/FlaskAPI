@@ -5,7 +5,7 @@ body {
 }
 body {
 	margin: 0;
-	background: linear-gradient(45deg, #49a09d, #5f2c82);
+	background: linear-gradient(45deg, #965d4e, #fc8a1e);
 	font-family: sans-serif;
 	font-weight: 80;
 
@@ -72,7 +72,9 @@ th {
 .btnnewblue:hover {
      background-position: right center;
 }
-
+.padding{
+	margin-bottom: 20px;
+}
 .btnnewgreen {
     text-align: center;
     transition: 0.5s;
