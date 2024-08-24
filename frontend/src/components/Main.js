@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 
 import axios from "axios";
 import main from '../styles/Main.module.css'
@@ -15,39 +15,31 @@ import cola from '../Main/img/ingredients/colapizza.png'
 import pizza_cola from '../Main/img/ingredients/pizzacola.png'
 
 const Main = () => {
-    const [userField, setUserField] = useState({
-        email: "",
-        password: ""
-    });
+    const [userData, setUSerData] = useState([]);
+    useEffect(() => {
+        fetchData();
+    }, [])
 
-    const changeUserFieldHandler = (e) => {
-        setUserField({
-            ...userField,
-            [e.target.name]: e.target.value
-        });
-        //console.log(userField);
 
-    }
-    const [loading, setLoading] = useState()
-
-    const onSubmitChange = async (e) => {
-        e.preventDefault();
+    const fetchData = async () => {
         try {
-            const responce = await axios.post("http://127.0.0.1:25000/auth/login", userField);
-            console.log(responce)
+            const token = localStorage.getItem('Authorisation');
+            const role = localStorage.getItem('Role');
+            console.log(role)
+            const result = await axios({
+                    url: 'http://127.0.0.1:25000/category',
+                    method: 'get',
 
-            setLoading(true);
-            var response_answer = await responce
-            var access_token = response_answer['data']['access_token']
-            var role = response_answer['data']['role']
-            localStorage.setItem('Authorisation', access_token);
-            localStorage.setItem('Role', role);
+                })
+            ;
+
+            // handle success
+            //console.  log(result.data);
+            console.log(result.data)
+            setUSerData(result.data)
         } catch (err) {
-            console.log("Something Wrong");
+            console.log("something Wrong");
         }
-    }
-    if (loading) {
-        return <Main/>
     }
 
     return (
@@ -155,162 +147,52 @@ const Main = () => {
 
             <section id="customize">
                 <div className={main['cards']}>
-            <div className={main["card"]}>
+
+                {
+                    userData.map((user, i) => {
+                        return (
+
+                            <div className={main["card"]}>
+                                <div className={main["card__top"]}>
+                                    <a href="#" className={main["card__image"]}>
+                                        <img
+                                            src={require(`../Main/img/ingredients/${user.img}`)}
+
+                                            alt=""
+                                            className={main.images_small}
+                                        />
+                                    </a>
+                {user.discount === 0
+    ? <>< />
+    : <div className={main["card__label"]}>-{user.discount}%</div>}
 
 
-                 <div className={main["card__top"]}>
+                                </div>
 
-    <a href="#" className={main["card__image"]}>
-      <img
-        src={pizza_3}
-        alt="Pizza"
-        className={main.images_small}
-      />
-    </a>
-    <div className={main["card__label"]}>-10%</div>
-  </div>
+                            <div className={main["card__bottom"]}>
+                                <div className={main["card__prices"]}>
+      <div className={`${main.card__price} ${main['card__price--common']}`}>{user.price}</div>
+                                    {user.discount === 0
+    ? <>< />
+    : <div className={`${main.card__price} ${main['card__price--discount']}`}>{user.price * (100- user.discount)/100}</div>}
 
-  <div className={main["card__bottom"]}>
-    <div className={main["card__prices"]}>
-      <div className={`${main.card__price} ${main['card__price--common']}`}>1 000</div>
-      <div className={`${main.card__price} ${main['card__price--discount']}`}>900</div>
     </div>
-
-    <a href="#" className={main["card__title"]}>
-      Pepper, mushrooms, cheese
+                            </div>
+                                 <a href="#" className={main["card__title"]}>
+                                     {user.description}
     </a>
 
     <button className={main["card__add"]}>В корзину</button>
+                            </div>
 
 
-  </div>
-            </div>
-                   <div className={main["card"]}>
 
+                           )
+                }
+                    )
 
-                 <div className={main["card__top"]}>
-
-    <a href="#" className={main["card__image"]}>
-      <img
-        src={pizza_4}
-        alt="Pizza"
-        className={main.images_small}
-      />
-    </a>
-    <div className={main["card__label"]}>-15%</div>
-  </div>
-
-  <div className={main["card__bottom"]}>
-    <div className={main["card__prices"]}>
-      <div className={`${main.card__price} ${main['card__price--common']}`}>1 200</div>
-      <div className={`${main.card__price} ${main['card__price--discount']}`}>1 000</div>
+                }
     </div>
-
-    <a href="#" className={main["card__title"]}>
-      Pepper, mushrooms, cheese
-    </a>
-
-    <button className={main["card__add"]}>В корзину</button>
-
-
-  </div>
-                   </div>
-                                   <div className={main["card"]}>
-
-
-                 <div className={main["card__top"]}>
-
-    <a href="#" className={main["card__image"]}>
-      <img
-        src={pizza_5}
-        alt=""
-        className={main.images_small}
-      />
-    </a>
-
-  </div>
-
-  <div className={main["card__bottom"]}>
-    <div className={main["card__prices"]}>
-      <div className={`${main.card__price} ${main['card__price--common']}`}>1 500</div>
-      <div className={`${main.card__price} ${main['card__price--discount']}`}>1 400</div>
-    </div>
-
-    <a href="#" className={main["card__title"]}>
-      Pepper, mushrooms, cheese
-    </a>
-
-    <button className={main["card__add"]}>В корзину</button>
-
-
-  </div>
-                   </div>
-                                   <div className={main["card"]}>
-
-
-                 <div className={main["card__top"]}>
-
-    <a href="#" className={main["card__image"]}>
-      <img
-        src={pizza_1    }
-        alt=""
-        className={main.images_small}
-      />
-    </a>
-    <div className={main["card__label"]}>-10%</div>
-  </div>
-
-  <div className={main["card__bottom"]}>
-    <div className={main["card__prices"]}>
-      <div className={`${main.card__price} ${main['card__price--common']}`}>1 500</div>
-      <div className={`${main.card__price} ${main['card__price--discount']}`}>1 300</div>
-    </div>
-
-    <a href="#" className={main["card__title"]}>
-      Pepper, mushrooms, cheese
-    </a>
-
-    <button className={main["card__add"]}>В корзину</button>
-
-
-  </div>
-                   </div>
-                                   <div className={main["card"]}>
-
-
-                 <div className={main["card__top"]}>
-
-    <a href="#" className={main["card__image"]}>
-      <img
-        src={pizza_6}
-        alt=""
-        className={main.images_small}
-      />
-    </a>
-    <div className={main["card__label"]}>-10%</div>
-  </div>
-
-  <div className={main["card__bottom"]}>
-    <div className={main["card__prices"]}>
-      <div className={`${main.card__price} ${main['card__price--common']}`}>1 350</div>
-      <div className={`${main.card__price} ${main['card__price--discount']}`}>1 200</div>
-    </div>
-
-    <a href="#" className={main["card__title"]}>
-      Pepper, mushrooms, cheese
-    </a>
-
-    <button className={main["card__add"]}>В корзину</button>
-
-
-  </div>
-                   </div>
-
-    </div>
-
-
-
-
     </section>
 
 

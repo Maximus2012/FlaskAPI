@@ -1,14 +1,14 @@
-from flask import request
+from flask import request, send_file
 from flask_restx import Resource, Namespace
-
+import os
 from dao.model.user import UserSchema, UserRoles, UserRolesSchema
 from dao.model.menu import *
 from decorators import auth_required, admin_required
 from implemented import category_service
-
+from werkzeug.utils import secure_filename
 
 category_ns = Namespace("category")
-
+file_name = ''
 @category_ns.route("/", methods=['GET', 'POST'])
 class UsersViews(Resource):
 
@@ -19,10 +19,28 @@ class UsersViews(Resource):
         return users_schema, 200
 
     def post(self):
-        request_json = request.json
-        msg, code = category_service.registration(request_json)
 
-        return msg, code
+
+
+        try:
+            target = os.path.join('frontend/src/Main/img/', 'ingredients')
+            file = request.files['file']
+            filename = secure_filename(file.filename)
+            destination = "/".join([target, filename])
+            global file_name
+            file_name = file.filename
+            file.save(destination)
+        except:
+
+            request_json = request.json
+            request_json['img'] = file_name
+            print(request_json)
+
+        # request_json['img'] = request_json['img'].split("\\")[-1]
+            msg, code = category_service.registration(request_json)
+            return msg, code
+
+
 
 @category_ns.route("/<int:category_name>", methods=['GET'])
 class UsersViews(Resource):

@@ -39,6 +39,7 @@ def register_extensions(app: Flask) -> None:
 
 
 app = create_app(Config())
+
 app.debug = True
 
 if __name__ == '__main__':
