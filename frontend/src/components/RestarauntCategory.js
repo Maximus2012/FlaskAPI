@@ -3,7 +3,7 @@ import axios from 'axios'
 import admin from "../styles/admin.module.css";
 import main from "../styles/Main.module.css";
 import login from "../styles/Login.module.css";
-const RestarauntProduct = () => {
+const RestarauntCategory = () => {
     const [userData, setUSerData] = useState([]);
     useEffect(() => {
         fetchData();
@@ -16,7 +16,7 @@ const RestarauntProduct = () => {
             const role = localStorage.getItem('Role');
             console.log(role)
             const result = await axios({
-                    url: 'http://127.0.0.1:25000/category/',
+                    url: 'http://127.0.0.1:25000/category/type',
                     method: 'get',
                     headers: {
                         Authorization: 'Bearer ' + token,
@@ -25,9 +25,6 @@ const RestarauntProduct = () => {
                 })
             ;
 
-            // handle success
-            //console.  log(result.data);
-            console.log(result.data)
             setUSerData(result.data)
         } catch (err) {
             console.log("something Wrong");
@@ -40,7 +37,7 @@ const RestarauntProduct = () => {
         const token = localStorage.getItem('Authorisation');
         const role = localStorage.getItem('Role');
         await axios({
-            url: 'http://127.0.0.1:25000/category/product/' + id,
+            url: 'http://127.0.0.1:25000/category/type/' + id,
             method: 'delete',
             headers: {
                 Authorization: 'Bearer ' + token,
@@ -58,27 +55,21 @@ const RestarauntProduct = () => {
         <body className={admin.body}>
 
         <div className={admin.container}>
-            <div>
-
+             <div>
             <button className={`${login.btncenter} ${login.btnnewgreen}  ${admin.alingCenter}`}
-                                            onClick={() => window.location.href = `/product`}>Add product
+                                            onClick={() => window.location.href = `/restaraunt/add/category`}>Add category
                                     </button>
-                 <button className={`${login.btncenter} ${login.btnnewgreen}  ${admin.alingCenter}`}
-                                            onClick={() => window.location.href = `/restaraunt/category`}>Category
+            <button className={`${login.btncenter} ${login.btnnewgreen}  ${admin.alingCenter}`}
+                                            onClick={() => window.location.href = `/restaraunt/product`}>Product
                                     </button>
-                </div>
-
+        </div>
             <table>
                 <thead>
                 <tr>
                     <th>ID</th>
-                    <th>Img</th>
-                    <th>Name</th>
-                    <th>Price</th>
-                    <th>Discount</th>
-                    <th>Description</th>
-                    <th>Categories_id</th>
+                    <th>Category Type</th>
                     <th>Action</th>
+
                 </tr>
                 </thead>
                 <tbody>
@@ -87,24 +78,16 @@ const RestarauntProduct = () => {
                         return (
                             <tr>
                                 <td>{categories.id}</td>
-                                <td><img
-                                            src={require(`../Main/img/server_img/${categories.img}`)}
+                                <td>{categories.category_type} </td>
 
-                                            alt=""
-                                            className={main.images_small}
-                                        /> </td>
-                                <td>{categories.name} </td>
-                                <td>{categories.price} </td>
-                                <td>{categories.discount} </td>
-                                <td>{categories.description} </td>
-                                <td>{categories.categories_id} </td>
+
                                 <td>
 
                                     <button className={admin.btnnewblue}
-                                            onClick={() => window.location.href = `/restaraunt/product/${categories.id}`}> View
+                                            onClick={() => window.location.href = `/restaraunt/category/${categories.id}`}> View
                                     </button>
                                     <button className={admin.btnnewgreen}
-                                            onClick={() => window.location.href = `/restaraunt/edit/product/${categories.id}`}>Edit
+                                            onClick={() => window.location.href = `/restaraunt/edit/${categories.id}`}>Edit
                                     </button>
                                     <button onClick={() => handleDelete(categories.id)} className={admin.btnnewred}>Delete
                                     </button>
@@ -124,4 +107,4 @@ const RestarauntProduct = () => {
 };
 
 
-export default RestarauntProduct;
+export default RestarauntCategory;

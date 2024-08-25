@@ -40,6 +40,8 @@ class CategoryService:
     def delete(self, user_id):
         return self.dao.delete(user_id)
 
+    def get_category_with_id(self, user_id):
+        return self.dao.get_category_with_category_id(user_id)
     def get_user(self, category_name):
         return self.dao.get_Category_one(category_name)
 

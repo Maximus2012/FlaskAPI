@@ -19,11 +19,8 @@ class UsersViews(Resource):
         return users_schema, 200
 
     def post(self):
-
-
-
         try:
-            target = os.path.join('frontend/src/Main/img/', 'ingredients')
+            target = os.path.join('frontend/src/Main/img/', 'server_img')
             file = request.files['file']
             filename = secure_filename(file.filename)
             destination = "/".join([target, filename])
@@ -34,6 +31,7 @@ class UsersViews(Resource):
 
             request_json = request.json
             request_json['img'] = file_name
+            file_name = ''
             print(request_json)
 
         # request_json['img'] = request_json['img'].split("\\")[-1]
@@ -42,13 +40,14 @@ class UsersViews(Resource):
 
 
 
+
 @category_ns.route("/<int:category_name>", methods=['GET'])
 class UsersViews(Resource):
 
     def get(self, category_name):
-        print(category_name)
+
         categories = category_service.get_user(category_name)
-        print(categories)
+
         users_schema = CategoriesIDSchema().dump(categories)
 
         return users_schema, 200
@@ -61,12 +60,13 @@ class UsersViews(Resource):
             return "Deleted", 204
 
     def patch(self, user_id):
+
         try:
             print('fdfd')
             file = request.files['file']
             categories = category_service.get_user(user_id)
-            os.remove(f'frontend/src/Main/img/ingredients/{categories.img}')
-            target = os.path.join('frontend/src/Main/img/', 'ingredients')
+            os.remove(f'frontend/src/Main/img/server_img/{categories.img}')
+            target = os.path.join('frontend/src/Main/img/', 'server_img')
 
             filename = secure_filename(file.filename)
             destination = "/".join([target, filename])
@@ -78,7 +78,9 @@ class UsersViews(Resource):
         except:
             req_json = request.json
             req_json["id"] = user_id
-            req_json['img'] = file_name
+            if file_name != '':
+                req_json['img'] = file_name
+            file_name = ''
             category_service.update(req_json)
 
 
@@ -116,3 +118,10 @@ class UsersViews(Resource):
         req_json["id"] = category_id
         category_service.update_category(req_json)
         return "", 204
+
+@category_ns.route("/product/get/<int:categories_id>")
+class UsersViews(Resource):
+    def get(self, categories_id):
+        answer = category_service.get_category_with_id(categories_id)
+        user_schema = CategoriesIDSchema(many=True).dump(answer)
+        return user_schema, 200

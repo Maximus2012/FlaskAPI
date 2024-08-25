@@ -101,7 +101,7 @@ const {user_id} = useParams()
               <body  className={login.body}>
         <div className={login.wrapper}>
             <div className={login.title}><span>Edit Product Form</span></div>
-            <form action="#" method="post" id="AddProductForm" >
+            <form action="#" method="post" id="EditProductForm" >
                     <div className={login.row}>
                     <i className={`${login.fas}${login.alingcenter} `}></i>
                     <input name="img" type="file" placeholder="File  " className={login.alingcenter} required
@@ -136,7 +136,7 @@ const {user_id} = useParams()
                            onChange={e => changeUserFieldHandler(e)}/>
                 </div>
                 <div className={`${login.button} ${login.row}`}>
-                    <input type="submit" value="Edir Product"  onClick={e => onSubmitChange(e)}/>
+                    <input type="submit" value="Edit Product"  onClick={e => onSubmitChange(e)}/>
                 </div>
 
 

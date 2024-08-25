@@ -33,6 +33,10 @@ class CategoryDao:
 
         return categories
 
+    def get_category_with_category_id(self, user_id):
+        categories = self.session.query(Categories_ID).filter(Categories_ID.categories_id == user_id).all()
+        return categories
+
 
     def get_Category_all(self):
         return self.session.query(Categories_ID).all()
@@ -70,7 +74,7 @@ class CategoryDao:
 
     def delete(self, user_id):
         del_category = self.session.query(Categories_ID).get(user_id)
-        os.remove(f'frontend/src/Main/img/ingredients/{del_category.img}')
+        os.remove(f'frontend/src/Main/img/server_img/{del_category.img}')
         self.session.delete(del_category)
         self.session.commit()
 

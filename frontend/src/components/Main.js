@@ -16,8 +16,10 @@ import pizza_cola from '../Main/img/ingredients/pizzacola.png'
 
 const Main = () => {
     const [userData, setUSerData] = useState([]);
+    const [userData2, setUSerData2] = useState([]);
     useEffect(() => {
         fetchData();
+        fetchData2();
     }, [])
 
 
@@ -41,6 +43,47 @@ const Main = () => {
             console.log("something Wrong");
         }
     }
+    const fetchData2 = async () => {
+        try {
+            const token = localStorage.getItem('Authorisation');
+            const role = localStorage.getItem('Role');
+            console.log(role)
+            const result = await axios({
+                    url: 'http://127.0.0.1:25000/category/type',
+                    method: 'get',
+
+                })
+            ;
+
+            // handle success
+            //console.  log(result.data);
+            console.log(result.data)
+            setUSerData2(result.data)
+        } catch (err) {
+            console.log("something Wrong");
+        }
+    }
+    const fetchData3 = async (e, id) => {
+        try {
+            const token = localStorage.getItem('Authorisation');
+            const role = localStorage.getItem('Role');
+            console.log(role)
+            const result = await axios({
+                    url: 'http://127.0.0.1:25000/category/product/get/'+ id,
+                    method: 'get'
+
+                })
+            ;
+
+            // handle success
+            //console.  log(result.data);
+            console.log(result.data)
+            setUSerData(result.data)
+        } catch (err) {
+            console.log("something Wrong");
+        }
+    }
+
 
     return (
         <body className={main.body}>
@@ -146,6 +189,19 @@ const Main = () => {
     </section>
 
             <section id="customize">
+                <div className={main.category}>
+                    <input type="submit" className={` ${main.display_flex}`}
+                           value="All"
+                           onClick={e => fetchData(e)}/>
+                { userData2.map((user, i) => {
+                        return (
+                            <input type="submit" className={` ${main.display_flex}`}
+                                   value={user.category_type.charAt(0).toUpperCase() + user.category_type.slice(1)}
+                                   onClick={e => fetchData3(e, user.id)}/>
+
+
+                        )})}
+                    </div>
                 <div className={main['cards']}>
 
                 {
@@ -155,12 +211,9 @@ const Main = () => {
                             <div className={main["card"]}>
                                 <div className={main["card__top"]}>
                                     <a href="#" className={main["card__image"]}>
-                                        <img
-                                            src={require(`../Main/img/ingredients/${user.img}`)}
-
-                                            alt=""
-                                            className={main.images_small}
-                                        />
+                                          {user.img === undefined
+    ? <>< />
+    :  <img src={require(`../Main/img/server_img/${user.img}`)} alt="" className={main.images_small}/> }
                                     </a>
                 {user.discount === 0
     ? <>< />
