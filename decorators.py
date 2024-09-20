@@ -24,10 +24,13 @@ def auth_required(func):
 
 def admin_required(func):
     def wrapper(*args, **kwargs):
-
-        if request.headers["Role"] == '1':
-            print('Succeed')
-        else:
+        try:
+            if request.headers["Role"] == '1':
+                print('Succeed')
+            else:
+                print('Your are not admin')
+                abort(403, "You are not admin")
+        except:
             print('Your are not admin')
             abort(403, "You are not admin")
 
@@ -37,11 +40,15 @@ def admin_required(func):
 
 def restaraunt_required(func):
     def wrapper(*args, **kwargs):
-        if request.headers["Role"] == '2':
-            print('Succeed')
-        else:
-            print('Your are not User')
-            abort(403, "You are not User")
+        try:
+            if request.headers["Role"] == '2':
+                print('Succeed')
+            else:
+                print('Your are not Chef')
+                abort(403, "You are not Chef")
+        except:
+            print('Your are not Chef')
+            abort(403, "You are not Chef")
 
         return func(*args, **kwargs)
 
@@ -50,12 +57,15 @@ def restaraunt_required(func):
 
 def user_required(func):
     def wrapper(*args, **kwargs):
-        if request.headers["Role"] == '3':
-            print('Succeed')
-        else:
-            print('Your are not shef')
-            abort(403, "You are not shef")
-
+        try:
+            if request.headers["Role"] == '3':
+                print('Succeed')
+            else:
+                print('Your are not shef')
+                abort(403, "You are not shef")
+        except:
+            print('Your are not user')
+            abort(403, "You are not user")
         return func(*args, **kwargs)
 
     return wrapper
