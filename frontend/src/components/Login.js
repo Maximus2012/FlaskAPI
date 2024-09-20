@@ -1,6 +1,7 @@
 import React, {useState} from "react";
 import login from "../styles/Login.module.css";
 import axios from "axios";
+import {useNavigate} from "react-router-dom";
 
 
 const Login = () => {
@@ -18,7 +19,7 @@ const Login = () => {
 
     }
     const [loading, setLoading] = useState()
-
+  const navigate = useNavigate();
     const onSubmitChange = async (e) => {
         e.preventDefault();
         try {
@@ -31,6 +32,7 @@ const Login = () => {
             var role = response_answer['data']['role']
             localStorage.setItem('Authorisation', access_token);
             localStorage.setItem('Role', role);
+            navigate('/')
         } catch (err) {
             console.log("Something Wrong");
         }

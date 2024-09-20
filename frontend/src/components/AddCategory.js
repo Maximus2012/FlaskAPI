@@ -30,8 +30,17 @@ const AddCategory = () => {
     const onSubmitChange = async (e) => {
         e.preventDefault();
         try {
-
-            const responce = await axios.post("http://127.0.0.1:25000/category/type", userField);
+            const token = localStorage.getItem('Authorisation');
+            const role = localStorage.getItem('Role');
+            const responce = await axios.post("http://127.0.0.1:25000/category/type", userField,
+                {
+                     url: 'http://127.0.0.1:25000/category/type',
+                    method: 'get',
+                    headers: {
+                        Authorization: 'Bearer ' + token,
+                        Role: role
+                    }
+                });
             console.log(responce)
             setLoading(true);
             var response_answer = await responce

@@ -33,17 +33,37 @@ const AddProduct = () => {
 
     const formData = new FormData();
     formData.append("file", file);
-    const responce = await axios.post("http://127.0.0.1:25000/category/", formData);
+     const token = localStorage.getItem('Authorisation');
+     const role = localStorage.getItem('Role');
+    const responce = await axios.post("http://127.0.0.1:25000/category/", formData,
+        {
+                  url: 'http://127.0.0.1:25000/category/',
+                    method: 'post',
+                    headers: {
+                        Authorization: 'Bearer ' + token,
+                        Role: role
+                    }
+        });
     }
     // create a new FormData object and append the file to it
 
     const onSubmitChange = async (e) => {
         e.preventDefault();
         try {
+             const token = localStorage.getItem('Authorisation');
+     const role = localStorage.getItem('Role');
                 userField['price'] = Number(userField['price'])
             userField['discount'] = Number(userField['discount'])
             userField['categories_id'] = Number(userField['categories_id'])
-            const responce = await axios.post("http://127.0.0.1:25000/category/", userField);
+            const responce = await axios.post("http://127.0.0.1:25000/category/", userField,
+                {
+                       url: 'http://127.0.0.1:25000/category/',
+                    method: 'post',
+                    headers: {
+                        Authorization: 'Bearer ' + token,
+                        Role: role
+                    }
+                });
             console.log(responce)
             setLoading(true);
             var response_answer = await responce

@@ -3,7 +3,7 @@ from flask_restx import Resource, Namespace
 import os
 from dao.model.user import UserSchema, UserRoles, UserRolesSchema
 from dao.model.menu import *
-from decorators import auth_required, admin_required
+from decorators import auth_required, restaraunt_required
 from implemented import category_service
 from werkzeug.utils import secure_filename
 
@@ -18,6 +18,8 @@ class UsersViews(Resource):
 
         return users_schema, 200
 
+    @restaraunt_required
+    @auth_required
     def post(self):
         try:
             target = os.path.join('frontend/src/Main/img/', 'server_img')
@@ -55,10 +57,16 @@ class UsersViews(Resource):
 
 @category_ns.route("/product/<int:user_id>")
 class UsersViews(Resource):
+
+    @restaraunt_required
+    @auth_required
     def delete(self, user_id):
             category_service.delete(user_id)
             return "Deleted", 204
 
+
+    @restaraunt_required
+    @auth_required
     def patch(self, user_id):
 
         try:
@@ -96,6 +104,9 @@ class UsersViews(Resource):
 
         return users_schema, 200
 
+
+    @restaraunt_required
+    @auth_required
     def post(self):
         request_json = request.json
         msg, code = category_service.create_category(request_json)
@@ -104,6 +115,9 @@ class UsersViews(Resource):
 
 @category_ns.route("/type/<int:category_id>")
 class UsersViews(Resource):
+
+    @restaraunt_required
+    @auth_required
     def delete(self, category_id):
             category_service.delete_category(category_id)
 
@@ -113,6 +127,10 @@ class UsersViews(Resource):
         user = category_service.get_one_name_category(category_id)
         users_schema = CategorySchema().dump(user)
         return users_schema, 200
+
+
+    @restaraunt_required
+    @auth_required
     def patch(self, category_id):
         req_json = request.json
         req_json["id"] = category_id

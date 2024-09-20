@@ -103,11 +103,9 @@ const Main = () => {
                     <a href="#benefits">Benefits</a>
                 </li>
                 <li>
-                    <a href="#customize">Types</a>
+                    <a href="#customize">Menu</a>
                 </li>
-                <li>
-                    <a href="#testimonials">Quotes</a>
-                </li>
+
                 <li>
                     <a href="/auth/login">
                         <span className={`highlight ${main.red_naw}`}>Login</span>
